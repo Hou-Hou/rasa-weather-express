@@ -1,0 +1,12 @@
+version: "2.0"
+
+nlu:
+- lookup: express
+  examples: |
+    - 顺丰
+    - 中通
+    - 圆通
+    - 申通
+
+- lookup: address
+   data/nlu/lookups/address.txt

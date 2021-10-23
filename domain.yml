@@ -1,0 +1,102 @@
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+intents:
+- greet
+- goodbye
+- whoareyou
+- whattodo
+- thanks
+- deny
+- affirm
+- stop
+- praise
+- search_express
+- search_weather
+- nlu
+entities:
+- express
+- number
+- address
+- date_time
+slots:
+  address_info:
+    type: text
+    auto_fill: false
+    influence_conversation: false
+  date_time_info:
+    type: text
+    auto_fill: false
+    influence_conversation: false
+  express_info:
+    type: text
+    auto_fill: false
+    influence_conversation: true
+  number_info:
+    type: text
+    auto_fill: false
+    influence_conversation: true
+responses:
+  utter_answer_greet:
+  - text: 您好！请问我可以帮到您吗？
+  - text: 您好！很高兴为您服务。请说出您要查询的功能？
+  utter_answer_goodbye:
+  - text: 再见
+  - text: 拜拜
+  - text: 虽然我有万般舍不得，但是天下没有不散的宴席~祝您安好！
+  - text: 期待下次再见！
+  - text: 嗯嗯，下次需要时随时记得我哟~
+  - text: see you!
+  utter_answer_whoareyou:
+  - text: 您好！我是小静呀，您的AI智能助理
+  utter_answer_thanks:
+  - text: 嗯呢。不用客气~
+  utter_answer_deny:
+  - text: 主人，您不开心吗？不要离开我哦
+  - text: 怎么了，主人？
+  utter_answer_affirm:
+  - text: 嗯嗯，好的！
+  - text: 嗯嗯，很开心能够帮您解决问题~
+  - text: 嗯嗯，还需要什么我能够帮助您的呢？
+  utter_ask_continue:
+  - text: 请问您还要继续吗？
+  utter_answer_praise:
+  - text: 你也好美🎉，像仙女一样~~~
+  - text: 你是个有趣的人呀👻
+  - text: 谢谢夸奖，我都不好意思了呢~~~
+  utter_ask_express_info:
+  - text: 请输入要查询的快递公司
+  utter_ask_number_info:
+  - text: 请输入要查询的快递单号
+  utter_search_express_finished:
+  - text: 这是到目前为止，关于{express_info}快递单号为{number_info}的物流信息
+  utter_ask_address_info:
+  - text: 您要查询哪里的天气？
+  utter_ask_date_time_info:
+  - text: 您要查询哪天的天气？
+  utter_default:
+  - text: 没听懂，请换种说法吧~
+  - text: 对不起，不太理解您的意思，麻烦您换种表达方式吧 😄
+  - text: 不好意思，我不太理解您的意思，请换一种说法吧 😕
+actions:
+- action_whattodo
+- action_default_fallback
+- action_search_express
+- action_search_weather
+forms:
+  search_express_form:
+    express_info:
+    - entity: express
+      intent: search_express
+      type: from_entity
+    number_info:
+    - entity: number
+      intent: search_express
+      type: from_entity
+  search_weather_form:
+    address_info:
+    - entity: address
+      type: from_entity
+    date_time_info:
+    - entity: date_time
+      type: from_entity

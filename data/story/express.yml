@@ -1,0 +1,198 @@
+version: "2.0"
+stories:
+- story: happy path1
+  steps:
+  - intent: search_express
+  - action: search_express_form
+  - active_loop: search_express_form
+  - active_loop: null
+  - action: action_search_express
+  - action: utter_search_express_finished
+  - intent: thanks
+  - action: utter_answer_thanks
+
+- story: happy path2
+  steps:
+  - intent: greet
+  - action: utter_answer_greet
+  - intent: search_express
+  - action: search_express_form
+  - active_loop: search_express_form
+  - active_loop: null
+  - action: action_search_express
+  - action: utter_search_express_finished
+  - intent: thanks
+  - action: utter_answer_thanks
+
+- story: greet + search_express + affirm
+  steps:
+  - intent: greet
+  - action: utter_answer_greet
+  - intent: search_express
+  - action: search_express_form
+  - active_loop: search_express_form
+  - active_loop: null
+  - action: action_search_express
+  - action: utter_search_express_finished
+  - intent: affirm
+  - action: utter_answer_affirm
+
+- story: greet + search_express + affirm + search_weather
+  steps:
+  - intent: greet
+  - action: utter_answer_greet
+  - intent: search_express
+  - action: search_express_form
+  - active_loop: search_express_form
+  - active_loop: null
+  - action: action_search_express
+  - action: utter_search_express_finished
+  - intent: affirm
+  - action: utter_answer_affirm
+  - intent: search_weather
+  - action: search_weather_form
+  - active_loop: search_weather_form
+  - active_loop: null
+  - action: action_search_weather
+
+- story: unhappy path
+  steps:
+  - intent: search_express
+  - action: search_express_form
+  - active_loop: search_express_form
+  - intent: nlu
+  - action: action_default_fallback
+  - action: search_express_form
+  - active_loop: null
+  - action: action_search_express
+  - action: utter_search_express_finished
+
+- story: very unhappy path
+  steps:
+  - intent: search_express
+  - action: search_express_form
+  - active_loop: search_express_form
+  - intent: nlu
+  - action: action_default_fallback
+  - action: search_express_form
+  - intent: nlu
+  - action: action_default_fallback
+  - action: search_express_form
+  - active_loop: null
+  - action: action_search_express
+  - action: utter_search_express_finished
+
+- story: stop but continue
+  steps:
+  - intent: search_express
+  - action: search_express_form
+  - active_loop: search_express_form
+  - intent: stop
+  - action: utter_ask_continue
+  - intent: affirm
+  - action: search_express_form
+  - active_loop: null
+  - action: action_search_express
+  - action: utter_search_express_finished
+
+- story: stop and really stop
+  steps:
+  - intent: search_express
+  - action: search_express_form
+  - active_loop: search_express_form
+  - intent: stop
+  - action: utter_ask_continue
+  - intent: deny
+  - action: action_deactivate_loop
+  - active_loop: null
+
+- story: nlu  + stop and continue
+  steps:
+  - intent: search_express
+  - action: search_express_form
+  - active_loop: search_express_form
+  - intent: nlu
+  - action: action_default_fallback
+  - action: search_express_form
+  - intent: stop
+  - action: utter_ask_continue
+  - intent: affirm
+  - action: search_express_form
+  - active_loop: null
+  - action: action_search_express
+  - action: utter_search_express_finished
+
+- story: nlu  + stop and continue
+  steps:
+  - intent: search_express
+  - action: search_express_form
+  - active_loop: search_express_form
+  - intent: nlu
+  - action: action_default_fallback
+  - action: search_express_form
+  - intent: stop
+  - action: utter_ask_continue
+  - intent: deny
+  - action: action_deactivate_loop
+  - active_loop: null
+
+- story: express  + weather
+  steps:
+  - intent: search_express
+  - action: search_express_form
+  - active_loop: search_express_form
+  - intent: search_weather
+  - active_loop: search_weather_form
+  - active_loop: null
+  - action: action_search_weather
+  - action: search_express_form
+  - active_loop: null
+  - action: action_search_express
+  - action: utter_search_express_finished
+
+- story:  weather + express
+  steps:
+  - intent: search_weather
+  - action: search_weather_form
+  - active_loop: search_weather_form
+  - intent: search_express
+  - active_loop: search_express
+  - active_loop: null
+  - action: action_search_express
+  - action: utter_search_express_finished
+  - action: search_weather_form
+  - active_loop: null
+  - action: action_search_weather
+
+
+- story: 快递查询
+  steps:
+  - intent: search_express
+    entities:
+    - express: 中通
+    - number: 75416807218275
+  - action: search_express_form
+  - active_loop: search_express_form
+  - slot_was_set:
+    - express_info: 圆通
+  - slot_was_set:
+    - number_info: YT9447831943116
+  - active_loop: null
+  - action: action_search_express
+  - action: utter_search_express_finished
+
+- story: Story from Conversation ID f12710170b124df78115a437ab64a129
+  steps:
+  - intent: greet
+  - action: utter_answer_greet
+  - intent: whattodo
+  - action: action_whattodo
+  - intent: search_express
+    entities:
+    - express: 圆通
+    - number: YT9447831943116
+  - action: search_express_form
+  - active_loop: search_express_form
+  - active_loop: null
+  - action: action_search_express
+  - action: utter_search_express_finished

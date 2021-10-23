@@ -1,0 +1,164 @@
+version: "2.0"
+stories:
+- story: happy path1
+  steps:
+    - intent: search_weather
+    - action: search_weather_form
+    - active_loop: search_weather_form
+    - active_loop: null
+    - action: action_search_weather
+
+- story: happy path2
+  steps:
+    - intent: greet
+    - action: utter_answer_greet
+    - intent: search_weather
+    - action: search_weather_form
+    - active_loop: search_weather_form
+    - active_loop: null
+    - action: action_search_weather
+    - intent: thanks
+    - action: utter_answer_thanks
+
+- story: unhappy path
+  steps:
+    - intent: greet
+    - action: utter_answer_greet
+    - intent: search_weather
+    - action: search_weather_form
+    - active_loop: search_weather_form
+    - intent: nlu
+    - action: action_default_fallback
+    - action: search_weather_form
+    - active_loop: null
+    - action: action_search_weather
+    - intent: thanks
+    - action: utter_answer_thanks
+
+- story: very unhappy path
+  steps:
+  - intent: greet
+  - action: utter_answer_greet
+  - intent: search_weather
+  - action: search_weather_form
+  - active_loop: search_weather_form
+  - intent: nlu
+  - action: action_default_fallback
+  - action: search_weather_form
+  - intent: nlu
+  - action: action_default_fallback
+  - action: search_weather_form
+  - intent: nlu
+  - action: action_default_fallback
+  - action: search_weather_form
+  - active_loop: null
+  - action: action_search_weather
+  - intent: thanks
+  - action: utter_answer_thanks
+
+- story: search_weather + stop but continue
+  steps:
+  - intent: greet
+  - action: utter_answer_greet
+  - intent: search_weather
+  - action: search_weather_form
+  - active_loop: search_weather_form
+  - intent: stop
+  - action: utter_ask_continue
+  - intent: affirm
+  - action: search_weather_form
+  - active_loop: null
+  - action: action_search_weather
+  - intent: thanks
+  - action: utter_answer_thanks
+
+- story: search_weather + stop and really stop
+  steps:
+  - intent: greet
+  - action: utter_answer_greet
+  - intent: search_weather
+  - action: search_weather_form
+  - active_loop: search_weather_form
+  - intent: stop
+  - action: utter_ask_continue
+  - intent: deny
+  - action: action_deactivate_loop
+  - active_loop: null
+  - action: action_search_weather
+
+- story: weather + nlu + stop but continue
+  steps:
+    - intent: greet
+    - action: utter_answer_greet
+    - intent: search_weather
+    - action: search_weather_form
+    - active_loop: search_weather_form
+    - intent: nlu
+    - action: action_default_fallback
+    - action: search_weather_form
+    - intent: stop
+    - action: utter_ask_continue
+    - intent: affirm
+    - action: search_weather_form
+    - active_loop: null
+    - action: action_search_weather
+    - intent: thanks
+    - action: utter_answer_thanks
+
+- story: weather + nlu + stop and really stop
+  steps:
+    - intent: greet
+    - action: utter_answer_greet
+    - intent: search_weather
+    - action: search_weather_form
+    - active_loop: search_weather_form
+    - intent: nlu
+    - action: action_default_fallback
+    - action: search_weather_form
+    - intent: stop
+    - action: utter_ask_continue
+    - intent: deny
+    - action: action_deactivate_loop
+    - active_loop: null
+
+- story: weather + stop but continue + nlu
+  steps:
+    - intent: greet
+    - action: utter_answer_greet
+    - intent: search_weather
+    - action: search_weather_form
+    - active_loop: search_weather_form
+    - intent: stop
+    - action: utter_ask_continue
+    - intent: affirm
+    - action: search_weather_form
+    - intent: nlu
+    - action: action_default_fallback
+    - action: search_weather_form
+    - active_loop: null
+    - action: action_search_weather
+    - intent: thanks
+    - action: utter_answer_thanks
+
+
+- story: weather + nlu + stop but continue + nlu
+  steps:
+    - intent: greet
+    - action: utter_answer_greet
+    - intent: search_weather
+    - action: search_weather_form
+    - active_loop: search_weather_form
+    - intent: nlu
+    - action: action_default_fallback
+    - action: search_weather_form
+    - intent: stop
+    - action: utter_ask_continue
+    - intent: affirm
+    - action: search_weather_form
+    - intent: nlu
+    - action: action_default_fallback
+    - action: search_weather_form
+    - active_loop: null
+    - action: action_search_weather
+    - intent: thanks
+    - action: utter_answer_thanks

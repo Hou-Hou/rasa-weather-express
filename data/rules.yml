@@ -1,0 +1,33 @@
+version: "2.0"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_answer_goodbye
+
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: whoareyou
+  - action: utter_answer_whoareyou
+
+- rule: whattodo
+  steps:
+  - intent: whattodo
+  - action: action_whattodo
+
+- rule: praise
+  steps:
+  - intent: praise
+  - action: utter_answer_praise
+
+- rule: thanks
+  steps:
+  - intent: thanks
+  - action: utter_answer_thanks
+
+- rule: low NLU confidence
+  steps:
+  - intent: nlu_fallback
+  - action: utter_default
